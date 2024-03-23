@@ -1,0 +1,24 @@
+Host nginx web Using Jenkins Pipeline
+
+
+
+pipeline {
+    agent {
+        label 'Agent2'
+    }
+    stages{
+        stage("git pull"){
+            steps{
+                git ''
+                sh'''sudo bash ./nginx-.sh'''
+            }
+        }
+        stage("install nginx"){
+            steps{
+                sh'''sudo apt update'''
+                sh'''sudo apt install nginx -y'''
+                sh'''sudo systemctl start nginx'''
+            }
+        }
+    }
+}
